@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAreaData } from "./api/index.js";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import "./App.css";
 
@@ -7,6 +13,7 @@ function App() {
   const [postcode, setPostcode] = useState("BB10");
   const [postcodeText, setPostcodeText] = useState("BB10");
   const [areas, setAreas] = useState([]);
+  const [country, setCountry] = useState("Great Britain");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +26,8 @@ function App() {
 
       //areas.concat(areaData);
 
-      setAreas(areaData);
+      setAreas(areaData.places);
+      setCountry(areaData.country);
     } catch (error) {
       window.alert("todo: fix app");
     }
@@ -33,6 +41,7 @@ function App() {
     <div className="App">
       <h1>Postcoders</h1>
       <h2>{`Areas for ${postcodeText}: ${areas.length}`}</h2>
+      <h2>{`Country: ${country}`}</h2>
       <form>
         <label>
           Enter outcode:
@@ -44,6 +53,26 @@ function App() {
         </label>
         <button onClick={handleSubmit}>Submit</button>
       </form>
+      {areas.map((i) => {
+        return (
+          <Card variant="outlined">
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} component="div">
+                {`Area name: ${i["place name"]}`}
+              </Typography>
+              <Typography sx={{ fontSize: 12 }} component="div">
+                {`Longitude: ${i["longitude"]}`}
+              </Typography>
+              <Typography sx={{ fontSize: 12 }} component="div">
+                {`Latitude: ${i["latitude"]}`}
+              </Typography>
+              <Typography sx={{ fontSize: 12 }} component="div">
+                {`State: ${i["state"]}`}
+              </Typography>
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 }
