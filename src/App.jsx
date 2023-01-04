@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAreaData } from "./api";
+import { getAreaData } from "./api/index.js";
 
 import "./App.css";
 
@@ -14,7 +14,7 @@ function App() {
 
       setAreas(areas);
     } catch (error) {
-      //window.alert("todo: fix app")
+      window.alert("todo: fix app");
     }
   };
 
