@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAreaData } from "./api/index.js";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import "./App.css";
@@ -23,9 +20,6 @@ function App() {
   const load = async () => {
     try {
       const areaData = await getAreaData(postcode);
-
-      //areas.concat(areaData);
-
       setAreas(areaData.places);
       setCountry(areaData.country);
     } catch (error) {
@@ -45,11 +39,7 @@ function App() {
       <form>
         <label>
           Enter outcode:
-          <input
-            onChange={(e) => setPostcode(e.target.value)}
-            // defaultValue={postcode}
-            //placeholder="BB10"
-          />
+          <input onChange={(e) => setPostcode(e.target.value)} />
         </label>
         <button onClick={handleSubmit}>Submit</button>
       </form>
